@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void output(int* nums, int count);
+
+int main()
+{
+	int n = 10;
+	int new_num;
+	char ch;
+	char flag = 'a';
+	int count = 0;
+	int* nums = (int*)malloc(sizeof(int) * n);
+	
+	if (nums == NULL)
+		flag = 'b';
+	
+	while (flag == 'a' && scanf("%d%c", &new_num, &ch) == 2) {
+		if (new_num > 0 && ch == ' ') {
+			if (count + 1 % n > 0) {
+				nums[count] = new_num;
+				count++;
+			}
+			else {
+				nums = (int*)realloc(nums, sizeof(int) * (count + n));
+				if (nums != NULL) {
+					nums[count] = new_num;
+					count++;
+				}
+				else {
+					flag = 'b';
+				}
+			}
+		}
+		else {
+			if (new_num == -1 && ch == '\n') {
+				flag = 'c';
+			}
+		}
+	}
+
+	if (flag == 'c') {
+		output(nums, count);
+	}
+
+	if (flag == 'b') {
+		printf("n/a");
+	}
+
+	return 0;
+}
+
+void output(int* nums, int count)
+{
+	for (int i = count - 1; i >= 0; i--)
+	{
+		printf("%d ", nums[i]);
+	}
+	putchar('\b');
+}
