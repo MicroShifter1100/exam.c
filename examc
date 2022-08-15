@@ -35,7 +35,9 @@ int main()
 		else {
 			if (new_num == -1 && ch == '\n') {
 				flag = 'c';
-			}
+			} else {
+                flag = 'b';
+            }
 		}
 	}
 
@@ -47,6 +49,7 @@ int main()
 		printf("n/a");
 	}
 
+    free(nums);
 	return 0;
 }
 
